@@ -1,0 +1,24 @@
+<%- include('./partials/header.ejs') %>
+<title>Register</title>
+</head>
+<body>
+  <h1>Register</h1>
+
+  <ul>
+    <% if (typeof errors !== 'undefined') { %>
+      <% errors.forEach(error => { %>
+      <li><%= error.message %></li>
+      <% }); %>
+    <% }; %>
+  </ul>
+
+  <form action="/users/register" method="post">
+    <input type="text" name="name" id="name" placeholder="Name" required><br><br>
+    <input type="email" name="email" id="email" placeholder="Email" required><br><br>
+    <input type="password" name="password" id="password" placeholder="Password" required><br><br>
+    <input type="password2" name="password2" id="password2" placeholder="Confirm password" required><br><br>
+    <input type="submit" value="Register"><br><br>
+  </form>
+  <a href="/users/login">Already registered? Login here</a>
+</body>
+</html>

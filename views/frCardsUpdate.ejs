@@ -1,0 +1,33 @@
+<%- include('./partials/frHead.ejs') %>
+
+<% const valueForTrue = card.randomize ? 'checked' : ''; %>
+<% const valueForFalse = card.randomize ? '' : 'checked'; %>
+
+<title>Modifier une fiche | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <h2 class="center">Modifier la fiche</h2>
+    </section>
+    <hr class="separator">
+    <section class="centered-max-width-650 center">
+      <form action="/fr/classeurs/<%= binderId %>/fiches/<%= card.id %>/modifier" method="post">
+        <h3>Face 1 : question</h3>
+        <textarea name="side1" id="side1" cols="30" rows="10"><%= card.side_1_markdown %></textarea>
+        <hr class="separator">
+        <h3>Face 2 : réponse</h3>
+        <textarea name="side2" id="side2" cols="30" rows="10"><%= card.side_2_markdown %></textarea>
+        <hr class="separator">
+        <input type="submit" class="cta-1 submit-link" value="Mettre à jour la fiche">
+      </form>
+      <hr class="separator">
+      <nav class="center">
+        <a href="/fr/classeurs/<%= binderId %>/fiches">Non, ne pas modifier</a>
+      </nav>
+    </section>
+   </main>
+  <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>

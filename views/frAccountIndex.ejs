@@ -1,0 +1,69 @@
+<%- include('./partials/frHead.ejs') %>
+<title>Mon compte | OptiLeague</title>
+<script nonce="<%= cspNonce %>" src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <h1 class="center">Mon compte</h1>
+    </section>
+    <hr class="separator">
+    <section>
+      <article class="centered-max-width-650 center">
+        <h2>Adresse e-mail</h2>
+        <p><%= user.email %></p>
+        <hr class="separator">
+        <nav><a href="/fr/mon-compte/changer-email" class="cta-1">Changer l'adresse e-mail</a></nav>
+        <hr class="separator">
+        <hr class="separator">
+        <h2>Mot de passe</h2>
+        <hr class="separator">
+        <nav><a href="/fr/mon-compte/changer-mot-de-passe" class="cta-1">Changer le mot de passe</a></nav>
+        <hr class="separator">
+        <hr class="separator">
+        <h2>Crédits</h2>
+        <% if (user.credits > 1) { %>
+        <p>Crédits: <%= user.credits %> jours</p>
+        <% } else { %>
+        <p>Crédits: <%= user.credits %> jour</p> 
+        <% } %>
+        <hr class="separator">
+        <nav>
+          <button class="cta-3 submit-link" id="checkout-button">Acheter 365 crédits - 60 €</button>
+        </nav>
+      </article>
+    </section>
+  </main>
+  <script nonce="<%= cspNonce %>">
+    // Create an instance of the Stripe object with your publishable API key
+    var stripe = Stripe('<%= FR_STRIPE_PUBLISHABLE_KEY %>');
+    var checkoutButton = document.getElementById('checkout-button');
+
+    checkoutButton.addEventListener('click', function() {
+      // Create a new Checkout Session using the server-side endpoint you
+      // created in step 3.
+      fetch('/fr/mon-compte/create-checkout-session', {
+        method: 'POST',
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(session) {
+        return stripe.redirectToCheckout({ sessionId: session.id });
+      })
+      .then(function(result) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, you should display the localized error message to your
+        // customer using `error.message`.
+        if (result.error) {
+          alert(result.error.message);
+        }
+      })
+      .catch(function(error) {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
+</html>

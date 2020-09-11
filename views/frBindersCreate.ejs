@@ -1,0 +1,25 @@
+<%- include('./partials/frHead.ejs') %>
+<title>Créer un nouveau classeur | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <h2 class="center">Créer un nouveau classeur</h2>
+    </section>
+    <hr class="separator">
+    <section>
+      <form action="/fr/classeurs/nouveau" method="post" class="centered-max-width-400">
+        <input type="text" name="name" id="name" placeholder="Nom du classeur" required>
+        <hr class="separator">
+        <input type="submit" class="cta-2 submit-link" value="Créer un nouveau classeur">
+      </form>
+      <hr class="separator">
+      <nav class="center">
+        <a href="/fr/classeurs">Non, ne pas créer</a>
+      </nav>
+    </section>
+  </main>
+  <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>

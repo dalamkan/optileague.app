@@ -1,0 +1,50 @@
+<%- include('./partials/frHead.ejs') %>
+<title>Changer l'adresse e-mail | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <h1 class="center"><%= binder.binder_name %></h1>
+    </section>
+    <hr class="separator">
+    <section>
+      <form action="/fr/s-entrainer/<%= binder.id %>" method="post" class="centered-max-width-650">
+        <h2 class="center">Faces des fiches à montrer</h2>
+        <fieldset>
+          <input type="radio" name="showside" id="showside1" value="showside1" checked>
+          <label for="showside1">1. Montrer uniquement les questions</label>
+          <br>
+          <input type="radio" name="showside" id="showside2" value="showside2">
+          <label for="showside2">2. Montrer uniquement les réponses</label>
+          <br>
+          <input type="radio" name="showside" id="showside3" value="showside3">
+          <label for="showside3">3. Montrer au hasard la question ou la réponse</label>
+        </fieldset>
+        <hr class="separator">
+        <h2 class="center">Ordre de révision des fiches</h2>
+        <fieldset>
+          <input type="radio" name="strategy" id="natural" value="natural">
+          <label for="natural">1. Fiches par ordre de création</label>
+          <br>
+          <input type="radio" name="strategy" id="random" value="random">
+          <label for="random">2. Fiches au hasard</label>
+          <br>
+          <input type="radio" name="strategy" id="scores" value="scores">
+          <label for="random">3. D'abord les fiches avec le score le plus faible</label>
+          <br>
+          <input type="radio" name="strategy" id="whatever" value="whatever" checked>
+          <label for="whatever">4. Stratégie 2 ou 3 au hasard (Recommandé)</label>
+        </fieldset>
+        <hr class="separator">
+        <input type="submit" class="cta-2 submit-link" value="Commencer la session">
+      </form>
+      <hr class="separator">
+      <nav class="center">
+        <a href="/fr/classeurs">Retourner aux classeurs</a>
+      </nav>
+    </section>
+  </main>
+  <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>

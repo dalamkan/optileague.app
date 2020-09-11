@@ -1,0 +1,29 @@
+<%- include('./partials/frHead.ejs') %>
+<title>Créer un nouveau classeur | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <h2 class="center">Classeur : <%= binder.binder_name %></h2>
+    </section>
+    <hr class="separator">
+    <section>
+      <form action="/fr/classeurs/<%= binder.id %>/fiches/nouvelle" method="post" class="centered-max-width-650 center">
+        <h3>Face 1 : question</h3>
+        <textarea name="side1" id="side1" cols="30" rows="10" placeholder="Rentrez le texte de la question ou de l'exercice"></textarea>
+        <hr class="separator">
+        <h3>Face 2 : réponse</h3>
+        <textarea name="side2" id="side2" cols="30" rows="10" placeholder="Rentrez le contenu de la réponse ou de la solution"></textarea>
+        <hr class="separator">
+        <input type="submit" class="cta-1 submit-link" value="Créer la fiche">
+      </form>
+      <hr class="separator">
+      <nav class="center">
+        <a href="/fr/classeurs/<%= binder.id %>/fiches">Non, ne pas créer</a>
+      </nav>
+    </section>
+   </main>
+   <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>

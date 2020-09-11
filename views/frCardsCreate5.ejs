@@ -1,0 +1,57 @@
+<%- include('./partials/frHead.ejs') %>
+<title>Créer un nouveau classeur | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <h2 class="center">Classeur : <%= binder.binder_name %></h2>
+    </section>
+    <hr class="separator">
+    <section>
+      <form action="/fr/classeurs/<%= binder.id %>/fiches/nouvelles" method="post" class="centered-max-width-650 center">
+        <h3>Question 1</h3>
+        <textarea name="q1" id="q1" cols="30" rows="10" placeholder="Rentrez le texte de la question 1"></textarea>
+        <hr class="separator">
+        <h3>Réponse 1</h3>
+        <textarea name="a1" id="a1" cols="30" rows="10" placeholder="Rentrez le texte de la réponse 1"></textarea>
+        <hr class="separator">
+        <hr class="footer-separator">
+        <h3>Question 2</h3>
+        <textarea name="q2" id="q2" cols="30" rows="10" placeholder="Rentrez le texte de la question 2"></textarea>
+        <hr class="separator">
+        <h3>Réponse 2</h3>
+        <textarea name="a2" id="a2" cols="30" rows="10" placeholder="Rentrez le texte de la réponse 2"></textarea>
+        <hr class="separator">
+        <hr class="footer-separator">
+        <h3>Question 3</h3>
+        <textarea name="q3" id="q3" cols="30" rows="10" placeholder="Rentrez le texte de la question 3"></textarea>
+        <hr class="separator">
+        <h3>Réponse 3</h3>
+        <textarea name="a3" id="a3" cols="30" rows="10" placeholder="Rentrez le texte de la réponse 3"></textarea>
+        <hr class="separator">
+        <hr class="footer-separator">
+        <h3>Question 4</h3>
+        <textarea name="q4" id="q4" cols="30" rows="10" placeholder="Rentrez le texte de la question 4"></textarea>
+        <hr class="separator">
+        <h3>Réponse 4</h3>
+        <textarea name="a4" id="a4" cols="30" rows="10" placeholder="Rentrez le texte de la réponse 4"></textarea>
+        <hr class="separator">
+        <hr class="footer-separator">
+        <h3>Question 5</h3>
+        <textarea name="q5" id="q5" cols="30" rows="10" placeholder="Rentrez le texte de la question 5"></textarea>
+        <hr class="separator">
+        <h3>Réponse 5</h3>
+        <textarea name="a5" id="a5" cols="30" rows="10" placeholder="Rentrez le texte de la réponse 5"></textarea>
+        <hr class="separator">
+        <input type="submit" class="cta-2 submit-link" value="Créer les fiches">
+      </form>
+      <hr class="separator">
+      <nav class="center">
+        <a href="/fr/classeurs/<%= binder.id %>/fiches">Non, ne pas créer</a>
+      </nav>
+    </section>
+   </main>
+   <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>

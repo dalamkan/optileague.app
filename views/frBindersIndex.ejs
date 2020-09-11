@@ -1,0 +1,99 @@
+<%- include('./partials/frHead.ejs') %>
+
+<% function formatDate(utcDate) { %>
+  <% let year = utcDate.getUTCFullYear(); %>
+  <% let month = utcDate.getUTCMonth() + 1; %>
+  <% if (month <= 9) { %>
+  <%   month = '0' + String(month); %>
+  <% } %>
+  <% let day = utcDate.getUTCDate(); %>
+  <% if (day <= 9) { %>
+  <%   day = '0' + String(day); %>
+  <% } %>
+  <% let formattedDate = `${year}/${month}/${day}`; %>
+  <% return formattedDate; %>
+<% } %>
+
+<% function getScore(positives, reviews) { %>
+  <% let score; %>
+  <% if (reviews === 0) { %>
+  <%   score = 0; %>
+  <% } else if (positives > reviews) { %>
+  <%  score = '-'; %>
+  <% } else { %>
+  <% score = Math.ceil(positives / reviews * 100); %>
+  <% } %>
+  <% return score; %>
+<% } %>
+
+<title>Classeurs | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <h2 class="center">Classeurs</h2>
+    </section>
+    <% if (binders.length >= 3) { %>
+      <section>
+        <nav class="center">
+          Trier par : 
+          <a href="/fr/classeurs?ordre=date-de-creation">Date de création</a> | 
+          <a href="/fr/classeurs?ordre=nom">Nom</a> |
+          <a href="/fr/classeurs?ordre=score">Score</a> | 
+          <a href="/fr/classeurs?ordre=revisions">Nombre de révisions</a> | 
+          <a href="/fr/classeurs?ordre=date-de-derniere-revision">Date de dernière révision</a>
+        </nav>
+      </section>
+      <% } %>
+    <hr class="separator">
+    <section>
+      <nav class="center">
+        <a href="/fr/classeurs/nouveau" class="cta-2">Créer un nouveau classeur</a>
+      </nav>
+    </section>
+    <hr class="separator">
+    <section class="row-ce-fe">
+      <% if (binders.length >= 1) { %>
+        <% binders.forEach(binder => { %>
+          <article class="centered-max-width-400 space-around">
+            <% const visibility = binder.to_review ? '' : 'secondary'; %>
+            <h3 class="<%= visibility %>"><%= binder.binder_name %></h3>
+            <hr class="dotted-separator <%= visibility %>">
+            <p class="<%= visibility %>">Fiches : <%= binder.cards %></p>
+            <p class="<%= visibility %>">Score: <%= getScore(binder.positives, binder.reviews) %> %</p>
+            <p class="<%= visibility %>">Nombre de révisions du classeur : <%= binder.binder_reviews %></p>
+            <p class="<%= visibility %>">Date de création : <%= formatDate(binder.creation_date); %></p>
+            <p class="<%= visibility %>">Date de dernière révision : <%= formatDate(binder.last_review_date); %></p>
+            <hr class="dotted-separator <%= visibility %>">
+            <nav>
+              <a href="/fr/classeurs/<%= binder.id %>/fiches" class="<%= visibility %>">Fiches</a> | 
+              <% if (binder.cards > 0) { %>
+                <% if (user.status_in_app === 'pending') { %>
+                  <a href="/fr/mon-compte" class="<%= visibility %>">Acheter des crédits</a> | 
+                <% } else { %>
+                  <a href="/fr/s-entrainer/<%= binder.id %>" class="<%= visibility %>">S'entraîner</a> | 
+                <% } %>
+              <% } %>
+              <a href="/fr/classeurs/<%= binder.id %>/parametres">Paramètres</a> | 
+              <a href="/fr/classeurs/<%= binder.id %>/supprimer" class="danger">Supprimer</a>
+            </nav>
+          </article>
+        <% }); %>
+      <% } %>
+    </section>
+    <hr class="separator">
+    <nav class=center>
+      <% const previousPage = currentPage - 1; %>
+      <% const nextPage = currentPage + 1; %>
+      <% if (previousPage >= 1) { %>
+        <a href="/fr/classeurs?ordre=<%= order %>&page=<%= previousPage %>">Classeurs précédents</a> |
+      <% } %>
+      <% if (nextPage <= numberOfPages) { %>
+        <a href="/fr/classeurs?ordre=<%= order %>&page=<%= nextPage %>">Classeurs suivants</a>
+      <% } %>
+    </nav>
+  </main>
+  <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<%- include('./partials/frHead.ejs') %>
+<title>Changer votre mot de passe | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <h2 class="center">Supprimer la fiche</h2>
+    </section>
+    <hr class="separator">
+      <section class="centered-max-width-650 center">
+        <article>
+          <p>Etes-vous sûr de vouloir supprimer la fiche suivante ?</b></p>
+          <hr class="separator">
+          <p><b><%- card.side_1_html %></b></p>
+          <hr class="dotted-separator">
+          <p><%- card.side_2_html %></p>
+          <hr class="separator">
+          <p class="alert-danger">Attention, cette action est irréversible. Vous ne pourrez plus avoir accès à cette fiche.</p>
+          <hr class="separator">
+          <form action="/fr/classeurs/<%= binder.id %>/fiches/<%= card.id %>/supprimer" method="post">
+            <input type="submit" class="cta-5 submit-link" value="Oui, supprimer cette fiche">
+          </form>
+          <hr class="separator">
+          <nav>
+            <a href="/fr/classeurs/<%= binder.id %>/fiches/">Non, ne pas supprimer</a>
+          </nav>
+      </article>
+    </section>
+  </main>
+  <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>

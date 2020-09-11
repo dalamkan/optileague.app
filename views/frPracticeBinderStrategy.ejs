@@ -1,0 +1,53 @@
+<%- include('./partials/frHead.ejs') %>
+<title>Réviser | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <% if (activeBinders.length === 0) { %>
+    <section>
+      <p class="centered-max-width-650 alert-info">Vous devez avoir au moins un classeur actif avec au moins 1 fiche pour pouvoir utiliser cette page.</p>
+    </section>
+    <% } else if (user.status_in_app === 'pending') { %>
+      <section>
+        <p class="centered-max-width-650 alert-info">
+          Vous devez avoir des crédits pour pouvoir utiliser cette page.
+          Rendez-vous sur la page <a href="/fr/mon-compte">mon compte</a> pour pouvoir acheter des crédits.
+        </p>
+      </section>
+    <% } else { %>
+      <section>
+        <h2 class="center">Choississez le prochain classeur à réviser</h2>
+      </section>
+    <hr class="separator">
+    <section>
+      <form action="/fr/s-entrainer" method="post" class="centered-max-width-650">
+       <fieldset>
+        <input type="radio" name="strategy" id="random" value="random">
+        <label for="random">1. Un classeur au hasard</label>
+        <br>
+        <input type="radio" name="strategy" id="scores" value="scores">
+        <label for="random">2. Le classeur avec le score le plus faible</label>
+        <br>
+        <input type="radio" name="strategy" id="reviews" value="reviews">
+        <label for="random">3. Le classeur le moins révisé</label>
+        <br>
+        <input type="radio" name="strategy" id="dates" value="dates">
+        <label for="random">4. Le classeur révisé il y a le plus longtemps</label>
+        <br>
+        <input type="radio" name="strategy" id="whatever" value="whatever" checked>
+        <label for="whatever">5. Un des 4 classeurs précédents au hasard (Recommandé)</label> 
+      </fieldset>
+       <hr class="separator">
+        <input type="submit" class="cta-2 submit-link" value="Réviser le classeur">
+      </form>
+      <hr class="separator">
+      <nav class="center">
+        <a href="/fr/classeurs">Retourner aux classeurs</a>
+      </nav>
+    </section>
+    <% } %>
+  </main>
+  <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<%- include('./partials/frHead.ejs') %>
+
+<% function formatDate(utcDate) { %>
+  <% let year = utcDate.getUTCFullYear(); %>
+  <% let month = utcDate.getUTCMonth() + 1; %>
+  <% if (month <= 9) { %>
+  <%   month = '0' + String(month); %>
+  <% } %>
+  <% let day = utcDate.getUTCDate(); %>
+  <% if (day <= 9) { %>
+  <%   day = '0' + String(day); %>
+  <% } %>
+  <% let formattedDate = `${year}/${month}/${day}`; %>
+  <% return formattedDate; %>
+  <% } %>
+  
+  <% function getScore(positives, reviews) { %>
+    <% let score; %>
+    <% if (reviews === 0) { %>
+    <%   score = 0; %>
+    <% } else if (positives > reviews) { %>
+    <%  score = '-'; %>
+    <% } else { %>
+    <% score = Math.ceil(positives / reviews * 100); %>
+    <% } %>
+    <% return score; %>
+  <% } %>
+<link href="/prism.css" rel="stylesheet" />
+<title>Classeurs | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <h2 class="center">Classeur : <%= binder.binder_name %></h2>
+    </section>
+    <hr class="separator">
+    <section>
+      <nav class="center">
+        <a href="/fr/classeurs/<%= binder.id %>/fiches/nouvelles" class="cta-2">Créer des fiches</a><br>
+      </nav>
+      <hr class="separator">
+      <nav class="center">
+        <a href="/fr/classeurs/" class="space-around">Retouner aux classeurs</a>
+      </nav>
+    </section>
+    <hr class="separator">
+    <section>
+      <% cards.forEach(card => { %>
+      <article class="centered-max-width-650">
+        <p><b><%- card.side_1_html %></b></p>
+        <hr class="dotted-separator">
+        <p>Retours positifs : <%= card.positives %> | Révisions : <%= card.reviews %> | Score : <%= getScore(card.positives, card.reviews) %> %</p>
+        <% const randomize = card.randomize ? 'oui' : 'non'; %>
+        <p>Présenter les faces au hasard: <%= randomize %></p>
+        <p>Date de création : <%= formatDate(card.creation_date) %> | Date de dernière révison : <%= formatDate(card.last_review_date) %></p>
+        <nav>
+          <a href="/fr/classeurs/<%= binder.id %>/fiches/<%= card.id %>/modifier">Modifier la fiche</a> | 
+          <a href="/fr/classeurs/<%= binder.id %>/fiches/<%= card.id %>/supprimer" class="danger">Supprimer la fiche</a>
+        </nav>
+      </article>
+      <hr class="separator">
+      <% }); %>
+    </section>
+    <hr class="separator">
+    <nav class=center>
+      <% const previousPage = currentPage - 1; %>
+      <% const nextPage = currentPage + 1; %>
+      <% if (previousPage >= 1) { %>
+        <a href="/fr/classeurs/<%= binder.id %>/fiches?ordre=<%= order %>&page=<%= previousPage %>">Classeurs précédents</a> |
+      <% } %>
+      <% if (nextPage <= numberOfPages) { %>
+        <a href="/fr/classeurs/<%= binder.id %>/fiches?ordre=<%= order %>&page=<%= nextPage %>">Classeurs suivants</a>
+      <% } %>
+    </nav>
+  </main>
+  <script nonce="<%= cspNonce %>" src="/prism.js"></script>
+  <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>

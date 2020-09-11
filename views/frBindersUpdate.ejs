@@ -1,0 +1,43 @@
+<%- include('./partials/frHead.ejs') %>
+
+<% const valueForTrue = binder.to_review ? 'checked' : ''; %>
+<% const valueForFalse = binder.to_review ? '' : 'checked'; %>
+
+<title>Paramètres du classeur | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <h2 class="center"> Paramètres du classeur : <%= binder.binder_name %></h2>
+    </section>
+      <hr class="separator">
+    <section>
+      <form action="/fr/classeurs/<%= binder.id %>/parametres" method="post" class="centered-max-width-650 center">
+        <h3>Nom</h3>
+        <input type="text" name="name" id="name" value="<%= binder.binder_name %>">
+        <hr class="separator">
+        <h3>Statut</h3>
+        <fieldset>
+          <input type="radio" id="true" name="toreview" value="true" <%= valueForTrue %>>
+          <label for="true">Actif</label>
+          <input type="radio" id="false" name="toreview" value="false" <%= valueForFalse %>>
+          <label for="false">En veille</label>
+        </fieldset>
+        <hr class="separator">
+        <p class="alert-info">
+          1. Les classeurs mis en veille sont grisés.<br>
+          2. Ils apparaissent systématiquement en bas de page dans la liste des classseurs.<br>
+          3. Ils ne sont pas proposés dans les classeurs à réviser.</p>
+        <hr class="separator">
+        <input type="submit" class="cta-2 submit-link" value="Mettre à jour le classeur">
+      </form>
+      <hr class="separator">
+      <nav class="center">
+        <a href="/fr/classeurs">Non, ne pas modifier</a>
+      </nav>
+    </section>
+  </main>
+  <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<%- include('./partials/frHead.ejs') %>
+<% const keys = ['name', 'message']; %>
+
+<title>Erreur</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section class="center">
+      <article>
+        <h1>Erreur</h1>
+        <p>Une erreur est survenue. La page que vous souhaitez voir n'est pas accessible.</p>
+      </article>
+      <hr class="separator">
+      <nav>
+        <a href="/fr/tableau-de-bord" class="cta-1">Retourner à l'accueil</a>
+      </nav>
+      <hr class="separator">
+      <hr class="separator">
+      <article class="alert-danger">
+        <% keys.forEach(key => { %>
+          <% if (err[key]) { %>
+            <p><%= key %>: <%= err[key] %></p>
+        <% } %>
+          </p>
+        <% }); %>
+      </article>
+    </section>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<%- include('./partials/frHead.ejs') %>
+<title>Changer l'adresse e-mail | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <h2 class="center">Changer votre adresse e-mail</h2>
+    </section>
+    <section class="centered-max-width-400 center">
+    <form action="/fr/mon-compte/changer-email" method="post">
+      <% if (message !== 'undefined') { %>
+        <p class="alert-danger"><%= message %></p>
+        <hr class="separator">
+      <% } else { %>
+      <%  return; %>
+      <% } %>
+      <input type="text" name="newemail" id="newemail" placeholder="Votre nouvelle adresse e-mail" required>
+      <hr class="separator">
+      <input type="submit" class="cta-2 submit-link" value="Changer l'e-mail">
+    </form>
+    <hr class="separator">
+    <nav>
+      <a href="/fr/mon-compte">Non, ne pas modifier</a>
+    </nav>
+  </section>
+  </main>
+</body>
+</html>

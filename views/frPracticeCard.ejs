@@ -1,0 +1,83 @@
+<%- include('./partials/frHead.ejs') %>
+
+<% function getRandomIntInclusive(min, max) { %>
+  <%   min = Math.ceil(min); %>
+  <%   max = Math.floor(max); %>
+  <%   return Math.floor(Math.random() * (max - min + 1) + min); %>
+  <% } %>
+
+<% let side_1; %>
+<% let side_2; %>
+<% let textOfButton; %>
+
+<% if (showside === 'showside3') { %>
+  <% randomNumber = getRandomIntInclusive(1, 10); %>
+  <% if (randomNumber % 2 === 0) { %>
+  <%   side_1 = card.side_1_html; %>
+  <%   side_2 = card.side_2_html; %>
+  <%   textOfButton = 'réponse'; %>
+  <% } else { %>
+  <%   side_1 = card.side_2_html; %>
+  <%   side_2 = card.side_1_html; %>
+  <%   textOfButton = 'question'; %>
+  <% } %>
+<% } else if (showside === 'showside2') { %>
+  <% side_1 = card.side_2_html; %>
+  <% side_2 = card.side_1_html; %>
+  <% textOfButton = 'question'; %>
+<% } else { %>
+  <% side_1 = card.side_1_html; %>
+  <% side_2 = card.side_2_html; %>
+  <% textOfButton = 'réponse'; %>
+<% } %>
+
+<link href="/prism.css" rel="stylesheet" />
+<title>Session d'entraînement | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <article class="centered-max-width-650">
+        <%- side_1 %>
+      </article>
+      <hr class="separator">
+      <nav class="center">
+        <button class="cta-3 submit-link" id="toggle">Montrer/cacher la <%= textOfButton %></button>
+      </nav>
+      <hr class="separator">
+      <article class="centered-max-width-650" id="otherside">
+        <%- side_2 %>
+      </article>
+      <hr class="separator">
+      <section class="centered-max-width-400 row-sa-fs">
+        <form action="/fr/s-entrainer/<%= binderId %>/fiche/<%= card.id %>?showside=<%= showside %>" method="post">
+          <input name="positives" type="hidden" value="one">
+          <input type="image" alt="Oui, je maîtrise" src="/images/yes-100x52.png">
+        </form>
+        <form action="/fr/s-entrainer/<%= binderId %>/fiche/<%= card.id %>?showside=<%= showside %>" method="post">
+          <input name="positives" type="hidden" value="zero">
+          <input type="image" alt="Non, à revoir" src="/images/no-100x52.png">
+        </form>
+      </section>
+      <hr class="separator">
+      <p class="center">Nombre de fiches restant à revoir : <%= remainingCards %></p>
+      <p class="center"><a href="/fr/classeurs">Quitter la session de révision</a></p>
+  </section>
+   </main>
+   <script nonce="<%= cspNonce %>">
+     let toggle = document.getElementById('toggle');
+     let otherSide = document.getElementById('otherside');
+     otherSide.style.display = 'none';
+     toggle.addEventListener("click", () => {
+      if(getComputedStyle(otherSide).display !== 'none'){
+        otherSide.style.display = 'none';
+      } else {
+        otherSide.style.display = 'block';
+      }
+    })
+   </script>
+   <script nonce="<%= cspNonce %>" src="/prism.js"></script>
+   <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>

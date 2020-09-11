@@ -1,0 +1,60 @@
+<%- include('./partials/frHead.ejs') %>
+
+<% function formatDate(utcDate) { %>
+  <% let year = utcDate.getUTCFullYear(); %>
+  <% let month = utcDate.getUTCMonth() + 1; %>
+  <% if (month <= 9) { %>
+  <%   month = '0' + String(month); %>
+  <% } %>
+  <% let day = utcDate.getUTCDate(); %>
+  <% if (day <= 9) { %>
+  <%   day = '0' + String(day); %>
+  <% } %>
+  <% let formattedDate = `${year}/${month}/${day}`; %>
+  <% return formattedDate; %>
+<% } %>
+
+<% function getScore(positives, reviews) { %>
+  <% let score; %>
+  <% if (reviews === 0) { %>
+  <%   score = 0; %>
+  <% } else if (positives > reviews) { %>
+  <%  score = '-'; %>
+  <% } else { %>
+  <% score = Math.ceil(positives / reviews * 100); %>
+  <% } %>
+  <% return score; %>
+<% } %>
+
+<title>Fin de session | OptiLeague</title>
+</head>
+<body>
+  <%- include('./partials/frHeader.ejs') %>
+  <main>
+    <section>
+      <article class="center">
+        <h2>Vous avez terminé votre session !</h2>
+        <p>Voici les nouvelles statistiques de votre classeur :</p>
+      </article>
+        <hr class="separator">
+        <article class="centered-max-width-400">
+          <h3><%= binder.binder_name %></h3>
+          <hr class="dotted-separator">
+          <p>Fiches revues : <%= binder.cards %></p>
+          <p>Nouveau score : <%= getScore(binder.positives, binder.reviews) %> %</p>
+          <p>Nombre de révisions du classeur: <%= binder.binder_reviews %></p>
+        </article>
+        <hr class="separator">
+        <nav class="center">
+          <a href="/fr/s-entrainer" class="cta-2">Réviser le prochain classeur</a>
+        </nav>
+        <hr class="separator">
+        <nav class="center">
+          <a href="/fr/classeurs">Retour aux classeurs</a>
+        </nav>
+      </article>
+    </section>
+   </main>
+   <%- include('./partials/frFooter.ejs') %>
+</body>
+</html>
