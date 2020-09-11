@@ -137,10 +137,10 @@ module.exports.updateBinderById = (id, binderName, toReview) => {
   process(sql, [id, binderName, toReview]);
 }
 
-module.exports.deleteBinderById = (id) => {
-  const sql1 = 'DELETE FROM binders WHERE id = $1';
-  process(sql1, [id]);
-  const sql2 ='UPDATE users SET binders = binders - 1 WHERE id = (SELECT user_id FROM binders WHERE id = $1)';
+module.exports.deleteBinderById = async (id) => {
+  const sql1 ='UPDATE users SET binders = binders - 1 WHERE id = (SELECT user_id FROM binders WHERE id = $1)';
+  await process(sql1, [id]);
+  const sql2 = 'DELETE FROM binders WHERE id = $1';
   process(sql2, [id]);
 }
 
