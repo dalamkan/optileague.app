@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt');
 const SALT_ROUND = 10;
 const config = require('../config.js');
 const stripe = require('stripe')(config.FR_STRIPE_SECRET_KEY);
-const STRIPE_PRICE_EUR_60 = 'price_1HO70VGon3BSOUQYOf9jfBBO';
 
 router.get('/', (req, res) => {
   res.locals.FR_STRIPE_PUBLISHABLE_KEY = config.FR_STRIPE_PUBLISHABLE_KEY;
@@ -107,7 +106,7 @@ router.post('/create-checkout-session', async (req, res) => {
     mode: "payment",
     client_reference_id: req.userId,
     line_items: [
-      { price: STRIPE_PRICE_EUR_60,
+      { price: config.STRIPE_PRICE_EUR_60,
         quantity: 1 }
     ],
   });
