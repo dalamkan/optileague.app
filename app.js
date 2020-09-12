@@ -106,6 +106,7 @@ app.use(airbrakeExpress.makeErrorHandler(airbrake));
 // Middleware - Handle all errors
 const handleErrors = require('./middleware/handleErrors');
 app.use(handleErrors);
+app.use( (req, res) => { res.status(404).render('frError404.ejs') });
 
 // Cron
 const cron = require('node-cron');
