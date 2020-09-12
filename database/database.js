@@ -57,7 +57,7 @@ module.exports.retrieve1CreditForCustomers = () => {
 }
 
 module.exports.updateCustomerStatus = () => {
-  const sql = 'UPDATE users SET status_in_app = $1, credits = 0 WHERE (role_in_app = $2 AND credits <= 0)';
+  const sql = 'UPDATE users SET status_in_app = $1 WHERE role_in_app = $2 AND credits = 0';
   process(sql, ['pending', 'customer']);
 }
 
