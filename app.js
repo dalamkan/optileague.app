@@ -112,11 +112,11 @@ app.use( (req, res) => { res.status(404).render('frError404.ejs') });
 const cron = require('node-cron');
 const updateCustomers = require('./helpers/updateCustomers.js');
 
-cron.schedule('* 4 * * *', () => {
+cron.schedule('0 4 * * *', () => {
   updateCustomers.credits();
 });
 
-cron.schedule('* 5 * * *', () => {
+cron.schedule('0 5 * * *', () => {
   updateCustomers.status();
 });
 
