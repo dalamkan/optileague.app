@@ -19,6 +19,11 @@ module.exports = {
     EN: '',
   },
 
+  NON_EXISTING_USER_ERROR: {
+    FR: "Impossible de changer le mot de passe. Le compte n'existe pas.",
+    EN: '',
+  },
+
   INCORRECT_FIELD: {
     FR: "L'adresse e-mail ou le mot de passe est incorrect.",
     EN: '',

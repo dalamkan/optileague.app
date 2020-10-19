@@ -99,4 +99,49 @@ router.post('/se-connecter', async (req, res, next) => {
   }
 });
 
+router.get('/reinitialiser-mot-de-passe/:userId', (req, res) => {
+  const userId = req.params.userId;
+  res.render('frAccountResetPassword.ejs', { message: undefined, userId });
+});
+
+router.post('/reinitialiser-mot-de-passe', async (req, res, next) => {
+  try {
+    // 1. Destructure the req.body (password)
+    let { newpassword, newpassword2, userid } = req.body;
+
+    // 2. Validate the input
+    if (input.missingField([newpassword, newpassword2])) {
+      return res.render('frAccountResetPassword.ejs', { message: messages.MISSING_FIELD_ERROR.FR, userId: userid });
+    }
+
+    // 3a. Check if the 2 new passwords are the same
+    const differentNewPasswords = (newpassword !== newpassword2);
+
+    // 3b. Reload the page with an error message
+    if (differentNewPasswords) {
+      return res.render('frAccountResetPassword.ejs', { message: messages.INCORRECT_PASSWORD.FR, userId: userid });
+    }
+
+    // 3. Check if the user exists (if the user exists, reload the page with an error message)
+    const users = await database.getUserById(userid);
+
+    if (users.length === 0) {
+      return res.render('frAccountResetPassword.ejs', { message: messages. NON_EXISTING_USER_ERROR.FR, userId: userid });
+    }
+
+    // 4. Bcrypt the user password
+    const salt = await bcrypt.genSalt(SALT_ROUND);
+    const bcryptPassword = await bcrypt.hash(newpassword, salt);
+
+    // 5. Reset the password of user
+    database.updatePasswordOfUser(userid, bcryptPassword);
+    
+    // 6. Redirect to the connection page
+    res.redirect('/fr/a/se-connecter');
+
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
