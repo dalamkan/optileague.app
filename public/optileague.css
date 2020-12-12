@@ -123,6 +123,14 @@ a:hover {
   border-color: #d6d8db;
 }
 
+.text-success {
+  color: green;
+}
+
+.text-info {
+  color: #17a2b8;
+}
+
 /* Text */
 h1, h2, h3, h4 {
   font-family: 'Roboto Slab Extra-bold', serif;
@@ -312,6 +320,20 @@ h1, h2, h3, h4 {
   border: 2px solid #DC3545;
 }
 
+.cta-6 {
+  padding: 0.7rem 1.5rem;
+  background-color: #28a745;
+  color: #FFFFFF;
+  border: 2px solid #28a745;
+  border-radius: 5px;
+}
+
+.cta-6:hover {
+  background-color: #FFFFFF;
+  color: #28a745;
+  border: 2px solid #28a745;
+}
+
 /* Forms */
 input, select, textarea, button {
   font-family: inherit;
@@ -361,4 +383,8 @@ img {
 pre, code {
   font-family: monospace;
   font-size: 14px;
+}
+
+ul, ol {
+  list-style-position: inside;
 }

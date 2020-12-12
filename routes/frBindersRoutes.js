@@ -195,9 +195,7 @@ router.post('/:binderId/fiches/nouvelles', async (req, res, next) => {
   try {
     const { q1, q2, q3, q4, q5, a1, a2, a3, a4, a5 } = req.body;
     const questions = [q1, q2, q3, q4, q5];
-    console.log(questions);
     const answers = [a1, a2, a3, a4, a5];
-    console.log(answers);
     const binderId = req.params.binderId;
     for (let i = 0; i < questions.length; i += 1) {
       if (questions[i] !== '') {

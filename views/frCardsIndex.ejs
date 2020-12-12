@@ -10,7 +10,7 @@
   <% if (day <= 9) { %>
   <%   day = '0' + String(day); %>
   <% } %>
-  <% let formattedDate = `${year}/${month}/${day}`; %>
+  <% let formattedDate = `${year}-${month}-${day}`; %>
   <% return formattedDate; %>
   <% } %>
   
@@ -37,7 +37,7 @@
     <hr class="separator">
     <section>
       <nav class="center">
-        <a href="/fr/classeurs/<%= binder.id %>/fiches/nouvelles" class="cta-2">Créer des fiches</a><br>
+        <a href="/fr/classeurs/<%= binder.id %>/fiches/nouvelles" class="cta-2">Créer de nouvelles fiches</a><br>
       </nav>
       <hr class="separator">
       <nav class="center">
@@ -51,9 +51,7 @@
         <p><b><%- card.side_1_html %></b></p>
         <hr class="dotted-separator">
         <p>Retours positifs : <%= card.positives %> | Révisions : <%= card.reviews %> | Score : <%= getScore(card.positives, card.reviews) %> %</p>
-        <% const randomize = card.randomize ? 'oui' : 'non'; %>
-        <p>Présenter les faces au hasard: <%= randomize %></p>
-        <p>Date de création : <%= formatDate(card.creation_date) %> | Date de dernière révison : <%= formatDate(card.last_review_date) %></p>
+        <p>Création : <%= formatDate(card.creation_date) %> | Dernière révison : <%= formatDate(card.last_review_date) %></p>
         <nav>
           <a href="/fr/classeurs/<%= binder.id %>/fiches/<%= card.id %>/modifier">Modifier la fiche</a> | 
           <a href="/fr/classeurs/<%= binder.id %>/fiches/<%= card.id %>/supprimer" class="danger">Supprimer la fiche</a>

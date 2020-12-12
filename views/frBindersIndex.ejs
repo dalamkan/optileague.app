@@ -10,7 +10,7 @@
   <% if (day <= 9) { %>
   <%   day = '0' + String(day); %>
   <% } %>
-  <% let formattedDate = `${year}/${month}/${day}`; %>
+  <% let formattedDate = `${year}-${month}-${day}`; %>
   <% return formattedDate; %>
 <% } %>
 
@@ -59,25 +59,24 @@
           <article class="centered-max-width-400 space-around">
             <% const visibility = binder.to_review ? '' : 'secondary'; %>
             <h3 class="<%= visibility %>"><%= binder.binder_name %></h3>
-            <hr class="dotted-separator <%= visibility %>">
-            <p class="<%= visibility %>">Fiches : <%= binder.cards %></p>
-            <p class="<%= visibility %>">Score: <%= getScore(binder.positives, binder.reviews) %> %</p>
-            <p class="<%= visibility %>">Nombre de révisions du classeur : <%= binder.binder_reviews %></p>
-            <p class="<%= visibility %>">Date de création : <%= formatDate(binder.creation_date); %></p>
-            <p class="<%= visibility %>">Date de dernière révision : <%= formatDate(binder.last_review_date); %></p>
-            <hr class="dotted-separator <%= visibility %>">
             <nav>
               <a href="/fr/classeurs/<%= binder.id %>/fiches" class="<%= visibility %>">Fiches</a> | 
+              <a href="/fr/classeurs/<%= binder.id %>/parametres">Paramètres</a> | 
               <% if (binder.cards > 0) { %>
                 <% if (user.status_in_app === 'pending') { %>
-                  <a href="/fr/mon-compte" class="<%= visibility %>">Acheter des crédits</a> | 
+                  <a href="/fr/mon-compte" class="<%= visibility %> text-success">Acheter des crédits</a>
                 <% } else { %>
-                  <a href="/fr/s-entrainer/<%= binder.id %>" class="<%= visibility %>">S'entraîner</a> | 
+                  <a href="/fr/s-entrainer/<%= binder.id %>" class="<%= visibility %> text-success">S'entraîner</a>
                 <% } %>
               <% } %>
-              <a href="/fr/classeurs/<%= binder.id %>/parametres">Paramètres</a> | 
-              <a href="/fr/classeurs/<%= binder.id %>/supprimer" class="danger">Supprimer</a>
+              <br><br>
             </nav>
+            <!-- <hr class="dotted-separator <%= visibility %>"> -->
+            <p class="<%= visibility %>">Fiches : <%= binder.cards %></p>
+            <p class="<%= visibility %>">Score: <%= getScore(binder.positives, binder.reviews) %> %</p>
+            <p class="<%= visibility %>">Révisions : <%= binder.binder_reviews %></p>
+            <p class="<%= visibility %>">Création : <%= formatDate(binder.creation_date); %></p>
+            <p class="<%= visibility %>">Dernière révision : <%= formatDate(binder.last_review_date); %></p>
           </article>
         <% }); %>
       <% } %>
