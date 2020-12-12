@@ -106,7 +106,7 @@ router.post('/create-checkout-session', async (req, res) => {
     mode: "payment",
     client_reference_id: req.userId,
     line_items: [
-      { price: config.STRIPE_PRICE_EUR_60,
+      { price: config.STRIPE_PRICE_EUR_24,
         quantity: 1 }
     ],
   });
