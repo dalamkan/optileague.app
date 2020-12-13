@@ -19,6 +19,11 @@ module.exports = {
     EN: '',
   },
 
+  NON_EXISTING_EMAIL_ERROR: {
+    FR: "Il n'existe pas de compte avec cette adresse e-mail. Veillez taper l'adresse e-mail d'un compte déjà existant.",
+    EN: '',
+  },
+
   NON_EXISTING_USER_ERROR: {
     FR: "Impossible de changer le mot de passe. Le compte n'existe pas.",
     EN: '',
@@ -38,5 +43,4 @@ module.exports = {
     FR: "Votre nouveau mot de passe doit être différent de votre votre mot de passe actuel.",
     EN: '',
   },
-
 }
