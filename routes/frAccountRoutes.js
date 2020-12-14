@@ -105,6 +105,7 @@ router.post('/create-checkout-session', async (req, res) => {
     payment_method_types: ['card'],
     mode: "payment",
     client_reference_id: req.userId,
+    allow_promotion_codes: true,
     line_items: [
       { price: config.STRIPE_PRICE_EUR_36,
         quantity: 1 }
